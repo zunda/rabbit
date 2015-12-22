@@ -168,6 +168,7 @@ module Rabbit
         def refresh_size
           return unless @size_dirty
 
+          p [@drawable.width, @drawable.height]
           @size = Size.new(@drawable.width,
                            @drawable.height,
                            @size.ratio)
@@ -176,6 +177,8 @@ module Rabbit
 
         def set_configure_event
           id = @window.signal_connect("configure_event") do |widget, event|
+            p :configured
+            p [event.x, event.y, event.width, event.height]
             configured(event.x, event.y, event.width, event.height)
             false
           end

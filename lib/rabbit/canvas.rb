@@ -400,6 +400,7 @@ module Rabbit
     end
 
     def fullscreened
+      p :fullscreened
       @renderer.post_fullscreen
     end
 
