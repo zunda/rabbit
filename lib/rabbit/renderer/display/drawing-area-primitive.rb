@@ -126,6 +126,7 @@ module Rabbit
 
         def set_map
           @area.signal_connect_after("map") do |widget|
+p [__FILE__, __LINE__, __method__, widget.window.width, widget.window.height]
             mapped(widget)
           end
         end
@@ -139,6 +140,7 @@ module Rabbit
           stop_events = false
           if @area.class.signals.include?("draw")
             @area.signal_connect("draw") do |widget, context|
+p [__FILE__, __LINE__, __method__, widget.window.width, widget.window.height]
               init_context(context)
               draw(widget, context)
               finish_renderer
@@ -146,6 +148,7 @@ module Rabbit
             end
           else
             @area.signal_connect("expose_event") do |widget, event|
+p [__FILE__, __LINE__, __method__, widget.window.width, widget.window.height]
               init_renderer(@drawable)
               draw(widget, @drawable.create_cairo_context)
               finish_renderer
@@ -179,6 +182,7 @@ module Rabbit
             prev_height ||= event.height
             if [prev_x, prev_y, prev_width, prev_height] !=
                 [event.x, event.y, event.width, event.height]
+p [__FILE__, __LINE__, __method__, widget.window.width, widget.window.height]
               configured_after(widget, event)
             end
             prev_x = event.x
