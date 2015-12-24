@@ -166,8 +166,6 @@ module Rabbit
         end
 
         def refresh_size
-          return unless @size_dirty
-
           p [@drawable.width, @drawable.height]
           @size = Size.new(@drawable.width,
                            @drawable.height,
