@@ -175,6 +175,10 @@ module Rabbit
         end
 
         def refresh_size
+if !@size_dirty and @drawable.width > 800 and @drawable.height > 600
+p [__method__, @drawable.width, @drawable.height]
+raise
+end
           return unless @size_dirty
 
           @size = Size.new(@drawable.width,
