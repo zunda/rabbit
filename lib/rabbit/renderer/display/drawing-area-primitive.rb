@@ -118,6 +118,7 @@ module Rabbit
           set_map
           set_draw
           set_configure_event_after
+          set_window_state_event_after
         end
 
         def depth
@@ -191,6 +192,17 @@ module Rabbit
 
         def configured_after(widget, event)
           reload_theme if @drawable
+        end
+
+        def set_window_state_event_after
+          @area.signal_connect_after("window_state_event") do |widget, event|
+            window_state_event_after(widget, event)
+          end
+        end
+
+        def window_state_event_after(widget, event)
+          reload_theme if @drawable
+          false
         end
 
         def reload_theme(&callback)

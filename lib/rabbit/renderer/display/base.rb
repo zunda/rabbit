@@ -14,6 +14,8 @@ module Rabbit
           @size_dirty = true
           @default_size_ratio = nil
           @size_ratio = nil
+          @configure_event_signal_id = nil
+          @window_state_event_signal_id = nil
           super
         end
 
@@ -49,12 +51,19 @@ module Rabbit
           @container = container || @window
 
           set_configure_event
+          set_window_state_event
         end
 
         def detach
-          if !@window.destroyed? and @configure_signal_id
-            @window.signal_handler_disconnect(@configure_signal_id)
-            @configure_signal_id = nil
+          unless @window.destroyed?
+            if @configure_event_signal_id
+              @window.signal_handler_disconnect(@configure_event_signal_id)
+              @configure_event_signal_id = nil
+            end
+            if @window_state_event_signal_id
+              @window.signal_handler_disconnect(@window_state_event_signal_id)
+              @window_state_event_signal_id = nil
+            end
           end
 
           @window = nil
@@ -179,10 +188,22 @@ module Rabbit
             configured(event.x, event.y, event.width, event.height)
             false
           end
-          @configure_signal_id = id
+          @configure_event_signal_id = id
         end
 
         def configured(x, y, w, h)
+          @size_dirty = true
+        end
+
+        def set_window_state_event
+          id = @window.signal_connect("window_state_event") do |widget, event|
+            window_state_changed(event)
+            false
+          end
+          @window_state_event_signal_id = id
+        end
+
+        def window_state_changed(event)
           @size_dirty = true
         end
 
