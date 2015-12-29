@@ -51,10 +51,12 @@ module Rabbit
         application = ::Rabbit.application
         succeeded = false
         application.signal_connect("command-line") do |_, command_line|
+puts "signal_connect: command-line #{__FILE__}"
           application.activate
           succeeded ? 0 : 1
         end
         application.signal_connect("activate") do
+puts "signal_connect: activate #{__FILE__}"
           begin
             succeeded = catch do |abort_tag|
               @abort_tag = abort_tag

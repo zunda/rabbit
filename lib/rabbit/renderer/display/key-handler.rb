@@ -262,6 +262,7 @@ module Rabbit
             Gdk::Keyval::KEY_KP_Down,
           ]
           widget.signal_connect("key_press_event") do |_widget, event|
+puts "signal_connect: key_press_event #{__FILE__}"
             handled = true
             modifier = event.state
             case event.keyval

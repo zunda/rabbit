@@ -278,6 +278,7 @@ module Rabbit
 
         def set_motion_notify_event
           @area.signal_connect("motion_notify_event") do |widget, event|
+puts "signal_connect: motion_notify_event #{__FILE__}"
             call_hook_procs(@motion_notify_hook_procs, event)
           end
         end

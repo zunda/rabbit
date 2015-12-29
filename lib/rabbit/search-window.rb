@@ -77,6 +77,7 @@ module Rabbit
       @direction.show
       @box.add(@direction)
       @direction.signal_connect("toggled") do |button|
+puts "signal_connect: toggled #{__FILE__}"
         if forward?
           type = :right
         else

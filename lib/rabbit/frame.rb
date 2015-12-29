@@ -133,6 +133,7 @@ module Rabbit
 
     def set_window_signal_window_state_event
       @window.signal_connect("window_state_event") do |widget, event|
+puts "signal_connect: window_state_event #{__FILE__}"
         if event.changed_mask.fullscreen?
           @fullscreen = event.new_window_state.fullscreen?
           if @fullscreen
@@ -154,6 +155,7 @@ module Rabbit
 
     def set_window_signal_destroy
       @window.signal_connect("destroy") do
+puts "signal_connect: destroy #{__FILE__}"
         @canvas.detach
       end
     end
@@ -164,6 +166,7 @@ module Rabbit
                              ["_NETSCAPE_URL", 0, 0]],
                             :copy)
       @window.signal_connect("drag-data-received") do |*args|
+puts "signal_connect: drag-data-received #{__FILE__}"
         widget, context, x, y, selection_data, info, time = args
         uri = selection_data.data.chomp
         Gtk.idle_add do
@@ -174,6 +177,7 @@ module Rabbit
       end
 
       @window.signal_connect("drag-drop") do |widget, context, x, y, time|
+puts "signal_connect: drag-drag #{__FILE__}"
         true
       end
     end

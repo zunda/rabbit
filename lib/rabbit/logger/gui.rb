@@ -86,6 +86,7 @@ module Rabbit
 
       def set_dialog_delete
         @dialog.signal_connect("destroy") do |widget, event|
+puts "signal_connect: destroy #{__FILE__}"
           exit if @current_severity >= Severity::FATAL
           true
         end
@@ -93,6 +94,7 @@ module Rabbit
 
       def set_dialog_response
         @dialog.signal_connect("response") do |widget, event|
+puts "signal_connect: response #{__FILE__}"
           case event
           when Gtk::Dialog::RESPONSE_CANCEL
             clear_buffer

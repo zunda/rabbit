@@ -43,17 +43,20 @@ module Rabbit
       vbox.pack_start(@video)
       @video_window.add(vbox)
       @video_window.signal_connect('frame-event') do |widget, event|
+puts "signal_connect: frame-event #{__FILE__}"
         if event.event_type == Gdk::EventType::BUTTON_PRESS
           @video.toggle
         end
       end
       @video_window.signal_connect('destroy') do
+puts "signal_connect: destroy #{__FILE__}"
         @video.stop
       end
     end
 
     def init_keys
       @video_window.signal_connect("key_press_event") do |widget, key|
+puts "signal_connect: key_press_event #{__FILE__}"
         case key.keyval
         when Gdk::Keyval::GDK_KEY_space
           @video.toggle
@@ -85,6 +88,7 @@ module Rabbit
         @playbin.video_sink = @video
         @playbin.audio_sink = Gst::ElementFactory.make('autoaudiosink')
         @playbin.signal_connect('notify') do
+puts "signal_connect: notify #{__FILE__}"
           @playbin.video_sink.xwindow_id = self.window.xid if self.window
           @playbin.video_sink.expose
         end

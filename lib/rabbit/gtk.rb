@@ -117,6 +117,7 @@ module Gtk
       def initialize(id, flags)
         super
         signal_connect_after("activate") do
+puts "signal_connect_after: activate #{__FILE__}"
           Gtk.main if ApplicationWindow.n_instances > 0
         end
       end
@@ -132,6 +133,7 @@ module Gtk
           window = Window.new
           @@n_instances += 1
           window.signal_connect("destroy") do
+puts "signal_connect: destroy #{__FILE__}"
             @@n_instances -= 1
             Gtk.main_quit if @@n_instances.zero?
           end

@@ -33,6 +33,7 @@ module Rabbit
         colorsel.set_current_alpha(a)
         add_line_width_control
         colorsel.signal_connect("color_changed") do
+puts "signal_connect: color_changed #{__FILE__}"
           color = Renderer::Color.new_from_gdk_color(colorsel.current_color)
           color.have_alpha = true
           alpha = colorsel.current_alpha / Renderer::Color::GDK_COLOR_NORMALIZE
@@ -45,6 +46,7 @@ module Rabbit
         spin = Gtk::SpinButton.new(1, 72, 1)
         spin.value = @original_line_width
         spin.signal_connect("value_changed") do
+puts "signal_connect: value_changed #{__FILE__}"
           @callback.call(nil, spin.value)
         end
         label = Gtk::Label.new(_("Line width:"))

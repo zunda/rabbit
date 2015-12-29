@@ -77,6 +77,7 @@ module Rabbit
       tooltip = _("Jump to the %dth slide") % i
       action = Gtk::Action.new(name, :label => label, :tooltip => tooltip)
       action.signal_connect("activate") do
+puts "signal_connect: activate #{__FILE__}"
         jump_to_action.activate {i}
       end
       action

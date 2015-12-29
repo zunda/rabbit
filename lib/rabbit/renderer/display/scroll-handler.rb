@@ -15,6 +15,7 @@ module Rabbit
 
         def set_scroll_event(widget)
           widget.signal_connect("scroll_event") do |widget, event|
+puts "signal_connect: scroll_event #{__FILE__}"
             handled = call_hook_procs(@scroll_hook_procs, event)
             unless handled
               handled = true

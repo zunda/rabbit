@@ -29,6 +29,7 @@ module Rabbit
     def load
       loader = GdkPixbuf::PixbufLoader.new
       id = loader.signal_connect("size_prepared") do |l, width, height|
+puts "signal_connect: size_prepared #{__FILE__}"
         @width = width
         @height = height
       end

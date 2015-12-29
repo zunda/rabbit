@@ -24,11 +24,13 @@ module Rabbit
         def set_button_event(widget)
           last_button_press_event = nil
           widget.signal_connect("button_press_event") do |_widget, event|
+puts "signal_connect: button_press_event #{__FILE__}"
             last_button_press_event = event
             call_hook_procs(@button_press_hook_procs, event)
           end
 
           widget.signal_connect("button_release_event") do |_widget, event|
+puts "signal_connect: button_release_event #{__FILE__}"
             if last_button_press_event
               handled = call_hook_procs(@button_release_hook_procs,
                                         event, last_button_press_event)

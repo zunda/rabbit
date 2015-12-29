@@ -55,6 +55,7 @@ module Rabbit
           entry = @search_window.entry
           direction = @search_window.direction
           entry.signal_connect("key_press_event") do |widget, key|
+puts "signal_connect: key_press_event #{__FILE__}"
             if key.state == Gdk::ModifierType.new
               if Keys::STOP_SLIDE_SEARCH_KEYS.include?(key.keyval)
                 @canvas.activate("StopSlideSearch")
@@ -67,12 +68,15 @@ module Rabbit
             end
           end
           entry.signal_connect("changed") do
+puts "signal_connect: changed #{__FILE__}"
             search_slide_with_current_input
           end
           direction.signal_connect("toggled") do
+puts "signal_connect: toggled #{__FILE__}"
             search_slide_with_current_input(true)
           end
           entry.signal_connect("activate") do
+puts "signal_connect: activate #{__FILE__}"
             search_slide_with_current_input(true)
             true
           end

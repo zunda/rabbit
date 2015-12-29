@@ -291,6 +291,7 @@ module Rabbit
 
         def set_map
           @embed.signal_connect("map") do |widget, event|
+puts "signal_connect: map #{__FILE__}"
             set_drawable(widget.window)
             false
           end
@@ -298,6 +299,7 @@ module Rabbit
 
         def set_expose_event
           @embed.signal_connect("expose-event") do |widget, event|
+puts "signal_connect: expose-event #{__FILE__}"
             reload_source
             false
           end
@@ -310,6 +312,7 @@ module Rabbit
 
         def set_configure_event_after
           @embed.signal_connect_after("configure_event") do |widget, event|
+puts "signal_connect_after: configure_event #{__FILE__}"
             configured_after(widget, event)
           end
         end
@@ -321,6 +324,7 @@ module Rabbit
 
         def set_motion_notify_event
           @embed.signal_connect("motion_notify_event") do |widget, event|
+puts "signal_connect: motion_notify_event #{__FILE__}"
             call_hook_procs(@motion_notify_hook_procs, event)
           end
 
@@ -411,6 +415,7 @@ module Rabbit
 
         def set_scroll_event
           @embed.signal_connect("scroll_event") do |widget, event|
+puts "signal_connect: scroll_event #{__FILE__}"
             handled = call_hook_procs(@scroll_hook_procs, event)
             unless handled
               handled = true

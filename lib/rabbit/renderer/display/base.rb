@@ -189,6 +189,7 @@ end
 
         def set_configure_event
           id = @window.signal_connect("configure_event") do |widget, event|
+puts "signal_connect: configure_event #{event.width} #{event.height} #{__FILE__}"
             configured(event.x, event.y, event.width, event.height)
             false
           end
@@ -201,6 +202,7 @@ end
 
         def set_window_state_event
           id = @window.signal_connect("window_state_event") do |widget, event|
+puts "signal_connect: window_state_event #{__FILE__}"
             window_state_changed(event)
             false
           end

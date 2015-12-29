@@ -100,6 +100,7 @@ module Rabbit
     def init_window(width, height)
       @window = Gtk::Window.new
       @window_destroy_id = @window.signal_connect("destroy") do
+puts "signal_connect: destroy #{__FILE__}"
         @canvas.activate("ToggleInfoWindow")
       end
       @window.title = _("%s: Information window") % @canvas.title
