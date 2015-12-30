@@ -201,6 +201,7 @@ end
         end
 
         def configured(x, y, w, h)
+puts "configured: #{x} #{y} #{w} #{h}"
           @size_dirty = true
         end
 
