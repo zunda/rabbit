@@ -190,6 +190,10 @@ end
         def set_configure_event
           id = @window.signal_connect("configure_event") do |widget, event|
 puts "signal_connect: configure_event #{event.width} #{event.height} #{__FILE__}"
+if event.width > 800
+puts "Tracing @size_dirty"
+trace_var :@size_dirty, proc{|v| puts "@size_dirty is now #{v.inspect} at @{caller[0]}"}
+end
             configured(event.x, event.y, event.width, event.height)
             false
           end
