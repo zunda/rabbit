@@ -14,6 +14,16 @@ module Rabbit
           end
         end
 
+        def initialize(*args)
+          super
+          trace_var :@size_dirty, proc{|v|
+            puts "@size_dirty is now #{v.inspect} at @{caller[0]}"
+          }
+          trace_var :@size, proc{|v|
+            puts "@size is now #{v.inspect} at @{caller[0]}"
+          }
+        end
+
         private
         def init_color
           super
