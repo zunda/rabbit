@@ -14,20 +14,19 @@ module Rabbit
           end
         end
 
-        def initialize(*args)
-          super
-          trace_var :@size_dirty, proc{|v|
-            puts "@size_dirty is now #{v.inspect} at @{caller[0]}"
-          }
-          trace_var :@size, proc{|v|
-            puts "@size is now #{v.inspect} at @{caller[0]}"
-          }
+        def size_dirty=(x)
+          trace_ivar_set(:@size_dirty, x)
         end
 
         private
         def init_color
           super
           init_engine_color
+        end
+
+        def trace_ivar_set(ivar, x)
+          puts "#{ivar} is set #{x.inspect} for #{self.class} at #{caller[1]} called from #{caller[2]}"
+          instance_variable_set(ivar, x)
         end
       end
     end

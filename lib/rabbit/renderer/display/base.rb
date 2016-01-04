@@ -11,7 +11,7 @@ module Rabbit
         def initialize(*args, &block)
           @drawable = nil
           @size = nil
-          @size_dirty = true
+          self.size_dirty = true
           @default_size_ratio = nil
           @size_ratio = nil
           @configure_event_signal_id = nil
@@ -183,7 +183,7 @@ end
           @size = Size.new(@drawable.width,
                            @drawable.height,
                            @size.ratio)
-          @size_dirty = false
+          self.size_dirty = false
         end
 
         def set_configure_event
@@ -197,7 +197,7 @@ puts "signal_connect: configure_event #{self.class} #{event.width} #{event.heigh
 
         def configured(x, y, w, h)
 puts "configured: #{x} #{y} #{w} #{h}"
-          @size_dirty = true
+          self.size_dirty = true
         end
 
         def set_window_state_event
@@ -210,7 +210,7 @@ puts "signal_connect: window_state_event #{__FILE__}"
         end
 
         def window_state_changed(event)
-          @size_dirty = true
+          self.size_dirty = true
         end
 
         def queue_draw
