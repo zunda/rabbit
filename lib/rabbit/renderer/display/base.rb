@@ -176,8 +176,7 @@ module Rabbit
 
         def refresh_size
 if !@size_dirty and @drawable.width > 800 and @drawable.height > 600
-p [__method__, @drawable.width, @drawable.height]
-raise
+p [__method__, self.class, @drawable.width, @drawable.height]
 end
           return unless @size_dirty
 
@@ -189,10 +188,10 @@ end
 
         def set_configure_event
           id = @window.signal_connect("configure_event") do |widget, event|
-puts "signal_connect: configure_event #{event.width} #{event.height} #{__FILE__}"
+puts "signal_connect: configure_event #{self.class} #{event.width} #{event.height} #{__FILE__}"
 if event.width > 800
 puts "Tracing @size_dirty"
-trace_var :@size_dirty, proc{|v| puts "@size_dirty is now #{v.inspect} at @{caller[0]}"}
+trace_var :@size_dirty, proc{|v| puts "@size_dirty is now #{v.inspect} at @{caller[0]} for #{self.class}"}
 end
             configured(event.x, event.y, event.width, event.height)
             false
